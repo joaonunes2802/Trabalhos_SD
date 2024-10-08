@@ -28,14 +28,16 @@ def client(serverName = 'localhost', serverPort = 15000):
             palavra = ""
             for operando in validacao:
                 palavra += operando
-            if palavra.isnumeric():
+            if palavra.isnumeric() and len(validacao) <= 20:
                 dados = numeros + ' ' + operacao
                 print(dados)
                 clientSocket.send(dados.encode())
                 resposta = clientSocket.recv(1024)
                 print('Resposta: ', resposta.decode())
-            else:
+            elif not palavra.isnumeric():
                 print('Erro!! Digite apenas números')
+            elif len(validacao) > 20:
+                print("Erro!! Digite no máximo 20 números")
             
     except socket.error as e:
         print(f"Socket error: {e}")
