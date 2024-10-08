@@ -1,19 +1,5 @@
 from socket import *
 
-'''def operacao(client, op):
-    #Escolha dos numeros
-    numeros = input()
-    op = str(op)
-    dados = numeros + op  #Adiciona o código da operação ao final da string de numeros
-
-    #Envio de dados para o server:
-    encoded_message = bytes(dados, "utf-8")
-    client.send(encoded_message)
-
-    #Recebimento da resposta do server:
-    resposta = client.recv(1024)
-    print('Resposta: ', resposta)'''
-
 def client(serverName = 'localhost', serverPort = 15000):
     #Criação do Socket do cliente que usará o protocolo TCP
     clientSocket = socket(AF_INET, SOCK_STREAM)
@@ -38,69 +24,19 @@ def client(serverName = 'localhost', serverPort = 15000):
             print("OBS: Escolha no máximo 20 números, separados pela tecla 'espaço'!!")
             
             numeros = input()
-            dados = numeros + ' ' + operacao
-            print(dados)
-            clientSocket.send(dados.encode())
-            resposta = clientSocket.recv(1024)
-            print('Resposta: ', resposta.decode())
-            # if operacao == 1:
-            #     #Escolha dos numeros
-            #     numeros = input()
-            #     dados = numeros + ' +'  #Adiciona 1 ao final da string de numeros para indicar que é para realizar uma adição
-                
-            #     #Envio de dados para o server:
-            #     encoded_message = bytes(dados, "utf-8")
-            #     clientSocket.send(encoded_message)
-
-            #     #Recebimento da resposta do server:
-            #     resposta = clientSocket.recv(1024)
-            #     print('Resposta: ', resposta)
-
-            #     #Alternativa: operacao(clientSocket, 1)
-            # elif operacao == 2:
-            #     #Escolha dos numeros
-            #     numeros = input()
-            #     dados = numeros + ' -'  #Adiciona 2 ao final da string de numeros para indicar que é para realizar uma subtração
-                
-            #     #Envio de dados para o server:
-            #     encoded_message = bytes(dados, "utf-8")
-            #     clientSocket.send(encoded_message)
-
-            #     #Recebimento da resposta do server:
-            #     resposta = clientSocket.recv(1024)
-            #     print ('Resposta: ', resposta)
-
-            #     #Alternativa: operacao(clientSocket, 2)
-            # elif operacao == 3:
-            #     #Escolha dos numeros
-            #     numeros = input()
-            #     dados = numeros + ' *'  #Adiciona 3 ao final da string de numeros para indicar que é para realizar uma multiplicação
-                
-            #     #Envio de dados para o server:
-            #     encoded_message = bytes(dados, "utf-8")
-            #     clientSocket.send(encoded_message)
-
-            #     #Recebimento da resposta do server:
-            #     resposta = clientSocket.recv(1024)
-            #     print ('Resposta: ', resposta)
-
-            #     #Alternativa: operacao(clientSocket, 3)
-            # elif operacao == 4:
-            #     #Escolha dos numeros
-            #     numeros = input()
-            #     dados = numeros + ' /'  #Adiciona 4 ao final da string de numeros para indicar que é para realizar uma divisão
-                
-            #     #Envio de dados para o server:
-            #     encoded_message = bytes(dados, "utf-8")
-            #     clientSocket.send(encoded_message)
-
-            #     #Recebimento da resposta do server:
-            #     resposta = clientSocket.recv(1024)
-            #     print ('Resposta: ', resposta)
-
-            #     #Alternativa: operacao(clientSocket, 4)
-            # elif operacao == 5:
-            #     break        
+            validacao = numeros.split(' ')
+            palavra = ""
+            for operando in validacao:
+                palavra += operando
+            if palavra.isnumeric():
+                dados = numeros + ' ' + operacao
+                print(dados)
+                clientSocket.send(dados.encode())
+                resposta = clientSocket.recv(1024)
+                print('Resposta: ', resposta.decode())
+            else:
+                print('Erro!! Digite apenas números')
+            
     except socket.error as e:
         print(f"Socket error: {e}")
     except Exception as e:
