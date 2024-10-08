@@ -16,19 +16,12 @@ try:
     numeros = data.decode().split(' ')
     operacao = numeros.pop()
 
-    if(len(numeros) > 20): 
-       conn.send('Quantidade de valores excedido!')
-       break
-
     soma = int(numeros[0])
     for numero in numeros[1:]:
-        if(operacao == '+'): soma+=int(numero)
-        elif(operacao == '-'): soma-=int(numero)
-        elif(operacao == '*'): soma*=int(numero)
-        elif(operacao == '/'): soma/=int(numero)
-        else:
-            conn.send('Operação inválida!')
-            break
+        if operacao == '+': soma += int(numero)
+        elif operacao == '-': soma -= int(numero)
+        elif operacao == '*': soma *= int(numero)
+        elif operacao == '/': soma /= int(numero)
 
     conn.send(str(soma).encode())
 finally:
